@@ -1,14 +1,23 @@
 import { SaveButton } from "./SaveButton/SaveButton";
 import { InputGroup } from "./InputGroup/InputGroup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export function Form({ title, inputs, onSave }) {
+export function Form({ title, inputs, onSave, profile }) {
   const [isSaved, setSaved] = useState(false);
+
+  const toCamelCase = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
+
+  useEffect(() => {
+    const profileFields = inputs.map((input) => toCamelCase(input.id));
+    const hasRequiredProfileValues = profileFields.every(
+      (key) => profile && profile[key],
+    );
+    setSaved(hasRequiredProfileValues);
+  }, [inputs, profile]);
 
   function handleSave(event) {
     event.preventDefault();
     if (isSaved) {
-      event.preventDefault();
       setSaved((isSaved) => !isSaved);
       return;
     }
@@ -34,7 +43,7 @@ export function Form({ title, inputs, onSave }) {
               id={input.id}
               type={input.type}
               pattern={input.pattern}
-              isRequired={input.isRequired}
+              value={profile ? profile[toCamelCase(input.id)] : ""}
             />
           ))}
         </fieldset>
