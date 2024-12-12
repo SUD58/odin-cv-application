@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "./Form";
 
 const personalDetailsInputs = [
@@ -50,19 +50,12 @@ const professionalExperienceInputs = [
 
 export function Forms() {
   const [profile, setProfile] = useState({});
-  const [isSaved, setSaved] = useState(false);
+
+  useEffect(() => localStorage.setItem("profile", JSON.stringify(profile)));
 
   const toCamelCase = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
   function handleSave(event) {
-    if (isSaved) {
-      event.preventDefault();
-      setSaved((isSaved) => !isSaved);
-      return;
-    }
-
-    event.preventDefault();
-
     const inputs = event.target.querySelectorAll("input");
     const newProfile = {};
 
@@ -72,7 +65,6 @@ export function Forms() {
     });
 
     setProfile({ ...profile, ...newProfile });
-    setSaved((isSaved) => !isSaved);
   }
 
   return (
@@ -81,21 +73,18 @@ export function Forms() {
         title="Personal Details"
         inputs={personalDetailsInputs}
         onSave={handleSave}
-        isSaved={isSaved}
       />
 
       <Form
         title="Educational Experience"
         inputs={educationalExperienceInputs}
         onSave={handleSave}
-        isSaved={isSaved}
       />
 
       <Form
         title="Professional Experience"
         inputs={professionalExperienceInputs}
         onSave={handleSave}
-        isSaved={isSaved}
       />
     </div>
   );

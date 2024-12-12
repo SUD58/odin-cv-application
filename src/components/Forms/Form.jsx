@@ -1,9 +1,24 @@
 import { SaveButton } from "./SaveButton/SaveButton";
 import { InputGroup } from "./InputGroup/InputGroup";
+import { useState } from "react";
 
-export function Form({ title, inputs, onSave, isSaved }) {
+export function Form({ title, inputs, onSave }) {
+  const [isSaved, setSaved] = useState(false);
+
+  function handleSave(event) {
+    event.preventDefault();
+    if (isSaved) {
+      event.preventDefault();
+      setSaved((isSaved) => !isSaved);
+      return;
+    }
+
+    onSave(event);
+    setSaved((isSaved) => !isSaved);
+  }
+
   return (
-    <form onSubmit={onSave}>
+    <form onSubmit={handleSave}>
       <details
         open={title === "Personal Details"}
         className="rounded-xl bg-white p-4 hover:bg-zinc-400 open:hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-800"
