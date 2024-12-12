@@ -1,17 +1,9 @@
-import { useState } from "react";
 import { SaveButton } from "./SaveButton/SaveButton";
 import { InputGroup } from "./InputGroup/InputGroup";
 
-export function Form({ title, inputs }) {
-  const [isSaved, setSaved] = useState(false);
-
-  function handleSave(event) {
-    event.preventDefault(); // Prevent default form submission
-    setSaved((prev) => !prev); // Toggle saved state
-  }
-
+export function Form({ title, inputs, onSave, isSaved }) {
   return (
-    <form onSubmit={handleSave}>
+    <form onSubmit={onSave}>
       <details
         open={title === "Personal Details"}
         className="rounded-xl bg-white p-4 hover:bg-zinc-400 open:hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-800"
@@ -27,6 +19,7 @@ export function Form({ title, inputs }) {
               id={input.id}
               type={input.type}
               pattern={input.pattern}
+              isRequired={input.isRequired}
             />
           ))}
         </fieldset>
