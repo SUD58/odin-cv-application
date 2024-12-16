@@ -23,13 +23,10 @@ export function Form({ title, inputs, onSave, profile }) {
   }, [inputs, profile]);
 
   useEffect(() => {
-    console.log(title, isOpen);
-
     localStorage.setItem(`${title} isOpen`, isOpen);
   }, [isOpen, title]);
 
   function handleOpen(event) {
-    console.log(isOpen);
     event.preventDefault();
     setOpen((isOpen) => !isOpen);
   }

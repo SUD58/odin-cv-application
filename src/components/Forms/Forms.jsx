@@ -54,7 +54,10 @@ export function Forms() {
     }
   });
 
-  useEffect(() => localStorage.setItem("profile", JSON.stringify(profile)));
+  useEffect(() => {
+    localStorage.setItem("profile", JSON.stringify(profile));
+    window.dispatchEvent(new Event("storageUpdate"));
+  }, [profile]);
 
   const toCamelCase = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
