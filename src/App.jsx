@@ -1,5 +1,5 @@
+import CvPreview from "./components/CvPreview/CvPreview";
 import { Forms } from "./components/Forms/Forms";
-import Preview from "./components/Preview/Preview";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
 
       <Forms />
 
-      <Preview />
+      <CvPreview />
     </>
   );
 }

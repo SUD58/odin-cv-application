@@ -6,7 +6,7 @@ export function ExperienceEntry({ entry, toTitleCase, onRemove }) {
   return (
     <div
       key={entry.id}
-      className="flex items-start rounded-xl border-4 border-green-500 p-4"
+      className="flex items-start rounded-xl border-2 border-green-500 p-4"
     >
       <div className="grow space-y-2">
         {Object.entries(entry).map(
