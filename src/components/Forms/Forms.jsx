@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { PersonalDetailsForm } from "./PersonalDetailsForm/PersonalDetailsForm";
 import { ExperienceDetailsForm } from "./ExperienceDetailsForm/ExperienceDetailsForm";
+import { v4 as uuidv4 } from "uuid";
 
 const personalDetailsInputs = [
   { label: "First Name", id: "first-name", type: "text" },
@@ -83,8 +84,7 @@ export function Forms() {
     if (!newProfile[section]) {
       newProfile[section] = [];
     }
-    const index = newProfile[section].length;
-    const newEntry = { id: index };
+    const newEntry = { id: uuidv4() };
 
     inputs.forEach((input) => {
       const camelisedId = toCamelCase(input.id);

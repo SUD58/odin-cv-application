@@ -51,19 +51,23 @@ export function ExperienceDetailsForm({
         >
           {title}
         </summary>
-        <details className="space-y-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-400 open:hover:bg-zinc-200 dark:bg-zinc-400 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-400">
-          <summary className="cursor-pointer">Existing Entries</summary>
-          {profile &&
-            profile.map((entry) => {
-              return (
-                <ExperienceEntry
-                  key={entry.id}
-                  entry={entry}
-                  toTitleCase={toTitleCase}
-                />
-              );
-            })}
-        </details>
+        {profile && (
+          <>
+            <details className="space-y-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-400 open:hover:bg-zinc-200 dark:bg-zinc-400 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-400">
+              <summary className="cursor-pointer">Existing Entries</summary>
+              {profile &&
+                profile.map((entry) => {
+                  return (
+                    <ExperienceEntry
+                      key={entry.id}
+                      entry={entry}
+                      toTitleCase={toTitleCase}
+                    />
+                  );
+                })}
+            </details>
+          </>
+        )}
         <fieldset className="space-y-3">
           {inputs.map((input, index) => (
             <InputGroup

@@ -1,4 +1,4 @@
-export function AddButton({ onClick }) {
+export function AddButton() {
   return (
     <button
       type="submit"
