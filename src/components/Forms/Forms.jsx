@@ -61,13 +61,14 @@ export function Forms() {
 
   const toCamelCase = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
-  function handleSave(event) {
+  function handleSave(event, section) {
     const inputs = event.target.querySelectorAll("input");
     const newProfile = {};
+    newProfile[section] = {};
 
     inputs.forEach((input) => {
       const camelisedId = toCamelCase(input.id);
-      newProfile[camelisedId] = input.value;
+      newProfile[section][camelisedId] = input.value;
     });
 
     setProfile({ ...profile, ...newProfile });
@@ -77,6 +78,7 @@ export function Forms() {
     <div className="no-scrollbar space-y-4 overflow-auto py-8 drop-shadow-xl">
       <Form
         title="Personal Details"
+        section="personalDetails"
         inputs={personalDetailsInputs}
         onSave={handleSave}
         profile={profile}
@@ -84,6 +86,7 @@ export function Forms() {
 
       <Form
         title="Educational Experience"
+        section="educationalExperience"
         inputs={educationalExperienceInputs}
         onSave={handleSave}
         profile={profile}
@@ -91,6 +94,7 @@ export function Forms() {
 
       <Form
         title="Professional Experience"
+        section="professionalExperience"
         inputs={professionalExperienceInputs}
         onSave={handleSave}
         profile={profile}

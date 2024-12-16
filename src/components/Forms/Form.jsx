@@ -1,8 +1,9 @@
 import { SaveButton } from "./SaveButton/SaveButton";
 import { InputGroup } from "./InputGroup/InputGroup";
+import { AddButton } from "./AddButton/AddButton";
 import { useEffect, useState } from "react";
 
-export function Form({ title, inputs, onSave, profile }) {
+export function Form({ title, section, inputs, onSave, profile }) {
   const [isSaved, setSaved] = useState(false);
   const [isOpen, setOpen] = useState(() => {
     const storedOpenState = localStorage.getItem(`${title} isOpen`);
@@ -17,10 +18,10 @@ export function Form({ title, inputs, onSave, profile }) {
   useEffect(() => {
     const profileFields = inputs.map((input) => toCamelCase(input.id));
     const hasRequiredProfileValues = profileFields.some(
-      (key) => profile && profile[key],
+      (key) => profile && profile[section] && profile[section][key],
     );
     setSaved(hasRequiredProfileValues);
-  }, [inputs, profile]);
+  }, [inputs, profile, section]);
 
   useEffect(() => {
     localStorage.setItem(`${title} isOpen`, isOpen);
@@ -38,8 +39,12 @@ export function Form({ title, inputs, onSave, profile }) {
       return;
     }
 
-    onSave(event);
+    onSave(event, section);
     setSaved((isSaved) => !isSaved);
+  }
+
+  function handleAdd() {
+    console.log("Added!");
   }
 
   return (
@@ -62,11 +67,18 @@ export function Form({ title, inputs, onSave, profile }) {
               id={input.id}
               type={input.type}
               pattern={input.pattern}
-              value={profile ? profile[toCamelCase(input.id)] : ""}
+              value={
+                profile[section] ? profile[section][toCamelCase(input.id)] : ""
+              }
             />
           ))}
         </fieldset>
-        <SaveButton isSaved={isSaved} />
+        <div className="flex gap-2">
+          {title !== "Personal Details" ? (
+            <AddButton onClick={handleAdd} />
+          ) : null}
+          <SaveButton isSaved={isSaved} />
+        </div>
       </details>
     </form>
   );
