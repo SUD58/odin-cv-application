@@ -1,16 +1,19 @@
-import { SaveButton } from "./SaveButton/SaveButton";
-import { InputGroup } from "./InputGroup/InputGroup";
-import { AddButton } from "./AddButton/AddButton";
+import { SaveButton } from "../SaveButton/SaveButton";
+import { InputGroup } from "../InputGroup/InputGroup";
 import { useEffect, useState } from "react";
 
-export function Form({ title, section, inputs, onSave, profile }) {
+export function PersonalDetailsForm({
+  title,
+  section,
+  inputs,
+  onSave,
+  profile,
+}) {
   const [isSaved, setSaved] = useState(false);
   const [isOpen, setOpen] = useState(() => {
     const storedOpenState = localStorage.getItem(`${title} isOpen`);
 
-    return storedOpenState !== null
-      ? JSON.parse(storedOpenState)
-      : title === "Personal Details";
+    return storedOpenState !== null ? JSON.parse(storedOpenState) : true;
   });
 
   const toCamelCase = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
@@ -18,7 +21,7 @@ export function Form({ title, section, inputs, onSave, profile }) {
   useEffect(() => {
     const profileFields = inputs.map((input) => toCamelCase(input.id));
     const hasRequiredProfileValues = profileFields.some(
-      (key) => profile && profile[section] && profile[section][key],
+      (key) => profile && profile[key],
     );
     setSaved(hasRequiredProfileValues);
   }, [inputs, profile, section]);
@@ -43,10 +46,6 @@ export function Form({ title, section, inputs, onSave, profile }) {
     setSaved((isSaved) => !isSaved);
   }
 
-  function handleAdd() {
-    console.log("Added!");
-  }
-
   return (
     <form onSubmit={handleSave}>
       <details
@@ -67,18 +66,11 @@ export function Form({ title, section, inputs, onSave, profile }) {
               id={input.id}
               type={input.type}
               pattern={input.pattern}
-              value={
-                profile[section] ? profile[section][toCamelCase(input.id)] : ""
-              }
+              value={profile ? profile[toCamelCase(input.id)] : ""}
             />
           ))}
         </fieldset>
-        <div className="flex gap-2">
-          {title !== "Personal Details" ? (
-            <AddButton onClick={handleAdd} />
-          ) : null}
-          <SaveButton isSaved={isSaved} />
-        </div>
+        <SaveButton isSaved={isSaved} />
       </details>
     </form>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Preview() {
   const [profile, setProfile] = useState(() => {
@@ -6,6 +6,10 @@ export default function Preview() {
     const storedProfile = localStorage.getItem("profile");
     return storedProfile ? JSON.parse(storedProfile) : {};
   });
+
+  const personalDetails = profile.personalDetails;
+  const educationalExperience = profile.educationalExperience;
+  const professionalExperience = profile.professionalExperience;
 
   useEffect(() => {
     // Event listener for the custom 'storageUpdate' event
@@ -28,27 +32,41 @@ export default function Preview() {
       {/* Personal Details Section */}
       <section id="personal-details">
         <h2>Personal Details</h2>
-        <p>Name: {profile.firstName + " " + profile.lastName}</p>
-        <p>Email: {profile.email}</p>
-        <p>Phone Number: {profile.phone}</p>
+        <p>
+          Name: {personalDetails.firstName + " " + personalDetails.lastName}
+        </p>
+        <p>Email: {personalDetails.email}</p>
+        <p>Phone Number: {personalDetails.phone}</p>
       </section>
 
       {/* Education Details Section */}
       <section id="education-details">
         <h2>Education Details</h2>
-        <p>Institution Name: {profile.institutionName}</p>
-        <p>Title of Study: {profile.titleOfStudy}</p>
-        <p>Date of Study: {profile.dateOfStudy}</p>
+        {educationalExperience.map((entry) => {
+          return (
+            <div key={entry.id}>
+              <p>Institution Name: {entry.institutionName}</p>
+              <p>Title of Study: {entry.titleOfStudy}</p>
+              <p>Date of Study: {entry.dateOfStudy}</p>
+            </div>
+          );
+        })}
       </section>
 
       {/* Professional Experience Section */}
       <section id="professional-experience">
         <h2>Professional Experience</h2>
-        <p>Company Name: {profile.companyName}</p>
-        <p>Position Title: {profile.positionTitle}</p>
-        <p>Responsibilities: {profile.responsibilities}</p>
-        <p>Worked From: {profile.workedFrom}</p>
-        <p>Worked Till: {profile.workedTill}</p>
+        {professionalExperience.map((entry) => {
+          return (
+            <div key={entry.id}>
+              <p>Company Name: {entry.companyName}</p>
+              <p>Position Title: {entry.positionTitle}</p>
+              <p>Responsibilities: {entry.responsibilities}</p>
+              <p>Worked From: {entry.workedFrom}</p>
+              <p>Worked Till: {entry.workedTill}</p>
+            </div>
+          );
+        })}
       </section>
     </div>
   );

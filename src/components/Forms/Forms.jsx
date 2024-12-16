@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Form } from "./Form";
+import { PersonalDetailsForm } from "./PersonalDetailsForm/PersonalDetailsForm";
+import { ExperienceDetailsForm } from "./ExperienceDetailsForm/ExperienceDetailsForm";
 
 const personalDetailsInputs = [
   { label: "First Name", id: "first-name", type: "text" },
@@ -74,30 +75,51 @@ export function Forms() {
     setProfile({ ...profile, ...newProfile });
   }
 
+  function handleAdd(event, section) {
+    const form = event.target.closest("form");
+    const inputs = form.querySelectorAll("input");
+
+    const newProfile = { ...profile };
+    if (!newProfile[section]) {
+      newProfile[section] = [];
+    }
+    const index = newProfile[section].length;
+    const newEntry = { id: index };
+
+    inputs.forEach((input) => {
+      const camelisedId = toCamelCase(input.id);
+      newEntry[camelisedId] = input.value;
+    });
+
+    newProfile[section].push(newEntry);
+
+    setProfile({ ...newProfile });
+  }
+
   return (
     <div className="no-scrollbar space-y-4 overflow-auto py-8 drop-shadow-xl">
-      <Form
+      <PersonalDetailsForm
         title="Personal Details"
         section="personalDetails"
         inputs={personalDetailsInputs}
         onSave={handleSave}
-        profile={profile}
+        profile={profile.personalDetails}
       />
 
-      <Form
+      <ExperienceDetailsForm
         title="Educational Experience"
         section="educationalExperience"
         inputs={educationalExperienceInputs}
-        onSave={handleSave}
-        profile={profile}
+        onAdd={handleAdd}
+        profile={profile.educationalExperience}
       />
 
-      <Form
+      <ExperienceDetailsForm
         title="Professional Experience"
         section="professionalExperience"
         inputs={professionalExperienceInputs}
-        onSave={handleSave}
-        profile={profile}
+        onAdd={handleAdd}
+        profile={profile.professionalExperience}
       />
     </div>
   );
