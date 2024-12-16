@@ -96,6 +96,22 @@ export function Forms() {
     setProfile({ ...newProfile });
   }
 
+  function handleRemove(entryId, section) {
+    const newProfile = { ...profile };
+
+    // Remove the entry by filtering out the entry with the matching id
+    if (newProfile[section]) {
+      newProfile[section] = newProfile[section].filter(
+        (entry) => entry.id !== entryId,
+      );
+    }
+
+    // Update the profile state only if changes were made
+    if (JSON.stringify(newProfile) !== JSON.stringify(profile)) {
+      setProfile({ ...newProfile });
+    }
+  }
+
   return (
     <div className="no-scrollbar space-y-4 overflow-auto py-8 drop-shadow-xl">
       <PersonalDetailsForm
@@ -111,6 +127,7 @@ export function Forms() {
         section="educationalExperience"
         inputs={educationalExperienceInputs}
         onAdd={handleAdd}
+        onRemove={handleRemove}
         profile={profile.educationalExperience}
       />
 
@@ -119,6 +136,7 @@ export function Forms() {
         section="professionalExperience"
         inputs={professionalExperienceInputs}
         onAdd={handleAdd}
+        onRemove={handleRemove}
         profile={profile.professionalExperience}
       />
     </div>

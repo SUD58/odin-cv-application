@@ -8,6 +8,7 @@ export function ExperienceDetailsForm({
   section,
   inputs,
   onAdd,
+  onRemove,
   profile,
 }) {
   const [isOpen, setOpen] = useState(() => {
@@ -39,6 +40,10 @@ export function ExperienceDetailsForm({
     onAdd(event, section);
   }
 
+  function handleRemove(entryId) {
+    onRemove(entryId, section);
+  }
+
   return (
     <form onSubmit={handleAdd}>
       <details
@@ -51,7 +56,7 @@ export function ExperienceDetailsForm({
         >
           {title}
         </summary>
-        {profile && (
+        {profile && profile.length > 0 && (
           <>
             <details className="space-y-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-400 open:hover:bg-zinc-200 dark:bg-zinc-400 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-400">
               <summary className="cursor-pointer">Existing Entries</summary>
@@ -62,6 +67,7 @@ export function ExperienceDetailsForm({
                       key={entry.id}
                       entry={entry}
                       toTitleCase={toTitleCase}
+                      onRemove={handleRemove}
                     />
                   );
                 })}

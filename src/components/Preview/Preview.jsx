@@ -46,14 +46,14 @@ export default function Preview() {
 
       {/* Education Details Section */}
       <section id="education-details">
-        {educationalExperience && (
+        {educationalExperience && educationalExperience.length > 0 && (
           <>
             <h2>Education Details</h2>
             {educationalExperience.map((entry) => (
               <div key={entry.id}>
                 <p>Institution Name: {entry.institutionName}</p>
-                <p>Title of Study: {entry.titleOfStudy}</p>
-                <p>Date of Study: {entry.dateOfStudy}</p>
+                <p>Title of Study: {entry.studyTitle}</p>
+                <p>Date of Study: {entry.studyDate}</p>
               </div>
             ))}
           </>
@@ -62,7 +62,7 @@ export default function Preview() {
 
       {/* Professional Experience Section */}
       <section id="professional-experience">
-        {professionalExperience && (
+        {professionalExperience && professionalExperience.length > 0 && (
           <>
             <h2>Professional Experience</h2>
             {professionalExperience.map((entry) => (
