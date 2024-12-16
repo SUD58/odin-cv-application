@@ -34,7 +34,6 @@ export default function CvPreview() {
       className="my-8 mr-8 flex flex-col gap-4 rounded-xl bg-white p-4"
     >
       <h1 className="text-2xl font-bold">Generated CV</h1>
-
       {/* Personal Details Section */}
       <section
         className="rounded-xl bg-zinc-200 p-4 dark:bg-zinc-200"
@@ -60,18 +59,20 @@ export default function CvPreview() {
           </>
         )}
       </section>
-
       {/* Education Details Section */}
-      <ExperienceDetailsPreview
-        title="Education Details"
-        data={educationalExperience}
-      />
-
+      {educationalExperience && educationalExperience.length > 0 && (
+        <ExperienceDetailsPreview
+          title="Education Details"
+          data={educationalExperience}
+        />
+      )}
       {/* Professional Experience Section */}
-      <ExperienceDetailsPreview
-        title="Professional Experience"
-        data={professionalExperience}
-      />
+      {professionalExperience && professionalExperience.length > 0 && (
+        <ExperienceDetailsPreview
+          title="Professional Experience"
+          data={professionalExperience}
+        />
+      )}
     </div>
   );
 }
