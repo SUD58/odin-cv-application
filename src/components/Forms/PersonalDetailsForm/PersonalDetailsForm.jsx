@@ -11,7 +11,7 @@ export function PersonalDetailsForm({
 }) {
   const [isSaved, setSaved] = useState(false);
   const [isOpen, setOpen] = useState(() => {
-    const storedOpenState = localStorage.getItem(`${title} isOpen`);
+    const storedOpenState = sessionStorage.getItem(`${title} isOpen`);
 
     return storedOpenState !== null ? JSON.parse(storedOpenState) : true;
   });
@@ -27,7 +27,7 @@ export function PersonalDetailsForm({
   }, [inputs, profile, section]);
 
   useEffect(() => {
-    localStorage.setItem(`${title} isOpen`, isOpen);
+    sessionStorage.setItem(`${title} isOpen`, isOpen);
   }, [isOpen, title]);
 
   function handleOpen(event) {

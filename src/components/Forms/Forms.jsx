@@ -47,7 +47,7 @@ const professionalExperienceInputs = [
 
 export function Forms() {
   const [profile, setProfile] = useState(() => {
-    const storedProfile = localStorage.getItem("profile");
+    const storedProfile = sessionStorage.getItem("profile");
 
     if (storedProfile) {
       return JSON.parse(storedProfile);
@@ -57,7 +57,7 @@ export function Forms() {
   });
 
   useEffect(() => {
-    localStorage.setItem("profile", JSON.stringify(profile));
+    sessionStorage.setItem("profile", JSON.stringify(profile));
     window.dispatchEvent(new Event("storageUpdate"));
   }, [profile]);
 

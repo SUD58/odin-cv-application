@@ -3,8 +3,8 @@ import { ExperienceDetailsPreview } from "./ExperienceDetailsPreview/ExperienceD
 
 export default function CvPreview() {
   const [profile, setProfile] = useState(() => {
-    // Load initial profile from localStorage
-    const storedProfile = localStorage.getItem("profile");
+    // Load initial profile from sessionStorage
+    const storedProfile = sessionStorage.getItem("profile");
     return storedProfile ? JSON.parse(storedProfile) : {};
   });
 
@@ -15,7 +15,7 @@ export default function CvPreview() {
   useEffect(() => {
     // Event listener for the custom 'storageUpdate' event
     const handleStorageUpdate = () => {
-      const storedProfile = localStorage.getItem("profile");
+      const storedProfile = sessionStorage.getItem("profile");
       setProfile(storedProfile ? JSON.parse(storedProfile) : {});
     };
 
@@ -30,7 +30,7 @@ export default function CvPreview() {
 
   return (
     <div id="profile" className="no-scrollbar overflow-auto">
-      <div className="my-8 mr-8 flex flex-col gap-4 rounded-xl bg-white p-4">
+      <div className="my-8 mr-8 flex min-h-[94vh] flex-col gap-4 rounded-xl bg-white p-4">
         <h1 className="text-2xl font-bold">Generated CV</h1>
         {/* Personal Details Section */}
         {personalDetails && Object.values(personalDetails).length > 0 && (

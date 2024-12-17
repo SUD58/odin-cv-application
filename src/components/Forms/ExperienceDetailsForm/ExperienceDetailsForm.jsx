@@ -12,7 +12,7 @@ export function ExperienceDetailsForm({
   profile,
 }) {
   const [isOpen, setOpen] = useState(() => {
-    const storedOpenState = localStorage.getItem(`${title} isOpen`);
+    const storedOpenState = sessionStorage.getItem(`${title} isOpen`);
 
     return storedOpenState !== null ? JSON.parse(storedOpenState) : false;
   });
@@ -27,7 +27,7 @@ export function ExperienceDetailsForm({
       .trim(); // Remove leading/trailing spaces
 
   useEffect(() => {
-    localStorage.setItem(`${title} isOpen`, isOpen);
+    sessionStorage.setItem(`${title} isOpen`, isOpen);
   }, [isOpen, title]);
 
   function handleOpen(event) {
