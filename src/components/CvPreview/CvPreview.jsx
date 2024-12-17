@@ -35,12 +35,12 @@ export default function CvPreview() {
     >
       <h1 className="text-2xl font-bold">Generated CV</h1>
       {/* Personal Details Section */}
-      <section
-        className="rounded-xl bg-zinc-200 p-4 dark:bg-zinc-200"
-        id="personal-details"
-      >
-        {personalDetails && (
-          <>
+      {personalDetails && Object.values(personalDetails).length > 0 && (
+        <>
+          <section
+            className="rounded-xl bg-zinc-200 p-4 dark:bg-zinc-200"
+            id="personal-details"
+          >
             <h2 className="text-xl">Personal Details</h2>
             <div>
               <span className="font-semibold">Name:</span>{" "}
@@ -56,9 +56,9 @@ export default function CvPreview() {
               <span className="font-semibold">Phone Number:</span>{" "}
               <span>{personalDetails.phone}</span>
             </div>
-          </>
-        )}
-      </section>
+          </section>
+        </>
+      )}
       {/* Education Details Section */}
       {educationalExperience && educationalExperience.length > 0 && (
         <ExperienceDetailsPreview
