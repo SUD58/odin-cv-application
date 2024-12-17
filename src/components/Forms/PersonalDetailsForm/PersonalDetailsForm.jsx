@@ -50,7 +50,7 @@ export function PersonalDetailsForm({
     <form onSubmit={handleSave}>
       <details
         open={isOpen}
-        className="rounded-xl bg-white p-4 hover:bg-zinc-400 open:hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-800"
+        className="rounded-xl bg-white py-2 open:pb-4 hover:bg-zinc-400 open:hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-800"
       >
         <summary
           onClick={handleOpen}
@@ -58,7 +58,7 @@ export function PersonalDetailsForm({
         >
           {title}
         </summary>
-        <fieldset disabled={isSaved} className="space-y-3">
+        <fieldset disabled={isSaved} className="space-y-3 px-4">
           {inputs.map((input, index) => (
             <InputGroup
               key={index}

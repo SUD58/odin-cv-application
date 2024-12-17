@@ -4,7 +4,7 @@ export function ExperienceDetailsPreview({ title, data }) {
       <div className="space-y-2">
         <h2 className="text-xl">{title}</h2>
         {data.map((entry) => (
-          <div key={entry.id} className="border-b pb-2">
+          <div key={entry.id} className="border-b border-zinc-400 pb-2">
             {Object.entries(entry).map(
               ([key, value]) =>
                 key !== "id" &&

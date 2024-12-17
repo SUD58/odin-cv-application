@@ -48,7 +48,7 @@ export function ExperienceDetailsForm({
     <form onSubmit={handleAdd}>
       <details
         open={isOpen}
-        className="space-y-4 rounded-xl bg-white p-4 hover:bg-zinc-400 open:hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-800"
+        className="space-y-4 rounded-xl bg-white py-2 open:pb-4 hover:bg-zinc-400 open:hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-800"
       >
         <summary
           onClick={handleOpen}
@@ -58,7 +58,7 @@ export function ExperienceDetailsForm({
         </summary>
         {profile && profile.length > 0 && (
           <>
-            <details className="space-y-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-400 open:hover:bg-zinc-200 dark:bg-zinc-400 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-400">
+            <details className="mx-4 space-y-2 rounded-lg bg-zinc-200 p-2 hover:bg-zinc-400 open:hover:bg-zinc-200 dark:bg-zinc-400 dark:hover:bg-zinc-700 dark:open:hover:bg-zinc-400">
               <summary className="cursor-pointer">Existing Entries</summary>
               {profile &&
                 profile.map((entry) => {
@@ -74,7 +74,7 @@ export function ExperienceDetailsForm({
             </details>
           </>
         )}
-        <fieldset className="space-y-3">
+        <fieldset className="space-y-3 px-4">
           {inputs.map((input, index) => (
             <InputGroup
               key={index}
